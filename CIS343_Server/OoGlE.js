@@ -23,7 +23,9 @@ const port = 3000;
 // Apply our middleware so our code can natively handle JSON easily
 app.use(bodyParser.json());
 
-var empolys = []]
+
+var data=fs.readFileSync('programmers.json', 'utf8');
+var info=JSON.parse(data);
 
 // We must have our list of programmers to use
 if (!fs.existsSync('./programmers.json')) {
@@ -33,13 +35,35 @@ if (!fs.existsSync('./programmers.json')) {
 // Build our routes
 
 app.get('/', (req, res) => {
-  res.send('Fill me in to return ALL programmers!');
+    
+  res.send(info);
 });
 
-app.get('/:id', (req, res) => {
+app.get('/:SID', (req, res) => {
   const id = req.params.id;
-
-  res.send(`Fill me in to return values with ID: ${id}`);
+     let i;
+    let idArray = info.SID.split('-').map(Number);
+    let sidString = "";
+    for(i = 0; i < idArray.length; i++){
+        sidString += idArray[i];
+    }
+    console.log(info);
+    console.log(info.SID);
+    console.log(idArray);
+    console.log(Number(sidString));
+   
+        if(JSON.stringify(info.SID).equals(id)){
+            console.log("A1");
+           res.send(info);
+             console.log("A2");
+           }
+        else if(Number(sidString)  == Number(id)){
+             console.log("B1");
+            res.send(info);
+             console.log("B2");
+        }
+        
+    console.log("C");
 });
 
 app.put('/:id', (req, res) => {
