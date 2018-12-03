@@ -57,21 +57,16 @@ if(info.SID  == id){
 app.put('/:id', (req, res) => {
   const id = req.params.id;
 
-  res.send(`Fill me in to update values with ID: ${id}`);
+  res.send(id);
 });
 
 
-app.post('/new', function(req,res){
-        console.log(req.body);
-        people[req.body.name] = req.body
-        console.log(people)
-        res.sendStatus(200)
-});
 
 app.post('/', (req, res) => {
   const body = req.body; // Hold your JSON in here!
 
   res.send(`You sent: ${body}`);
+    res.sendStatus(200)
 });
 
 // IMPLEMENT A ROUTE TO HANDLE ALL OTHER ROUTES AND RETURN AN ERROR MESSAGE
