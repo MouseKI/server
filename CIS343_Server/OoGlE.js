@@ -32,32 +32,18 @@ if (!fs.existsSync('./programmers.json')) {
   throw new Error('Could not find database of programmers!');
 }
 
-// Build our routes
 
+//sent all the programmer information
 app.get('/', (req, res) => {
-    
   res.send(info);
 });
 
+
+//responed to the server that match the SID
 app.get('/:SID', (req, res) => {
-  const id = req.params.id;
-     let i;
-    let idArray = info.SID.split('-').map(Number);
-    let sidString = "";
-    for(i = 0; i < idArray.length; i++){
-        sidString += idArray[i];
-    }
-    console.log(info);
-    console.log(info.SID);
-    console.log(idArray);
-    console.log(Number(sidString));
-   
-        if(JSON.stringify(info.SID).equals(id)){
-            console.log("A1");
-           res.send(info);
-             console.log("A2");
-           }
-        else if(Number(sidString)  == Number(id)){
+    const id = req.params.SID;
+
+if(info.SID  == id){
              console.log("B1");
             res.send(info);
              console.log("B2");
@@ -66,10 +52,20 @@ app.get('/:SID', (req, res) => {
     console.log("C");
 });
 
+
+
 app.put('/:id', (req, res) => {
   const id = req.params.id;
 
   res.send(`Fill me in to update values with ID: ${id}`);
+});
+
+
+app.post('/new', function(req,res){
+        console.log(req.body);
+        people[req.body.name] = req.body
+        console.log(people)
+        res.sendStatus(200)
 });
 
 app.post('/', (req, res) => {
