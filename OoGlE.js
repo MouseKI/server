@@ -23,10 +23,6 @@ const port = 3000;
 // Apply our middleware so our code can natively handle JSON easily
 app.use(bodyParser.json());
 
-
-var data=fs.readFileSync('programmers.json', 'utf8');
-var info=JSON.parse(data);
-
 // We must have our list of programmers to use
 if (!fs.existsSync('./programmers.json')) {
   throw new Error('Could not find database of programmers!');
@@ -35,38 +31,35 @@ if (!fs.existsSync('./programmers.json')) {
 
 //sent all the programmer information
 app.get('/', (req, res) => {
-  res.send(info);
+  res.json(database);
 });
 
 
 //responed to the server that match the SID
 app.get('/:SID', (req, res) => {
     const id = req.params.SID;
+   send.json( database.find(user => user.SID === id));
 
-if(info.SID  == id){
-             console.log("B1");
-            res.send(info);
-             console.log("B2");
-        }
-        
-    console.log("C");
 });
 
 
 
 app.put('/:id', (req, res) => {
   const id = req.params.id;
-
-  res.send(id);
+    const index = database.findIndex(user => user.SID === id);
+    
+    databse[index] = {...database[index], ...body};
+    
+  res.sendStatus(200);
 });
 
 
 
 app.post('/', (req, res) => {
   const body = req.body; // Hold your JSON in here!
-
+dabase.push(body);
   res.send(`You sent: ${body}`);
-    res.sendStatus(200)
+    res.sendStatus(200);
 });
 
 // IMPLEMENT A ROUTE TO HANDLE ALL OTHER ROUTES AND RETURN AN ERROR MESSAGE
