@@ -51,12 +51,12 @@ app.get('/:SID', (req, res) => {
 
 
 
-app.put('/:id', (req, res) => {
+app.put('/:SID', (req, res) => {
    	const id = req.params.id;
 	let index;	
-	const found = database.map((user, idx) => {
+	const found = database.map((user, sid) => {
 		if(user.SID === id){
-			index = idx
+			index = sid
 		}
 	});
 
