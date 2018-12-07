@@ -38,19 +38,35 @@ app.get('/', (req, res) => {
 //responed to the server that match the SID
 app.get('/:SID', (req, res) => {
     const id = req.params.SID;
-   send.json( database.find(user => user.SID === id));
+      const check = database.find(user => user.SID === id);
+    
+    if(check){
+	res.json(check);
+	}
+	else{
+	res.send(`SID: ${id} not found`)
+	}
 
 });
 
 
 
 app.put('/:id', (req, res) => {
-  const id = req.params.id;
-    const index = database.findIndex(user => user.SID === id);
-    
-    databse[index] = {...database[index], ...body};
-    
-  res.sendStatus(200);
+   	const id = req.params.id;
+	let index;	
+	const found = database.map((user, idx) => {
+		if(user.SID === id){
+			index = idx
+		}
+	});
+
+	if (found){
+		    
+		databse[index] = {...database[index], ...body};
+		res.json(databse[index] );
+	}else{
+		res.send(`id: ${id} is not found`);
+	}
 });
 
 
@@ -58,8 +74,7 @@ app.put('/:id', (req, res) => {
 app.post('/', (req, res) => {
   const body = req.body; // Hold your JSON in here!
 dabase.push(body);
-  res.send(`You sent: ${body}`);
-    res.sendStatus(200);
+res.json(body);
 });
 
 // IMPLEMENT A ROUTE TO HANDLE ALL OTHER ROUTES AND RETURN AN ERROR MESSAGE
