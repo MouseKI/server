@@ -62,8 +62,8 @@ app.put('/:SID', (req, res) => {
 
 	if (found){
 		    
-		databse[index] = {...database[index], ...body};
-		res.json(databse[index] );
+		database[index] = {...database[index], ...req.body};
+		res.json(database[index] );
 	}else{
 		res.send(`id: ${id} is not found`);
 	}
@@ -73,7 +73,7 @@ app.put('/:SID', (req, res) => {
 
 app.post('/', (req, res) => {
   const body = req.body; // Hold your JSON in here!
-dabase.push(body);
+database.push(body);
 res.json(body);
 });
 
