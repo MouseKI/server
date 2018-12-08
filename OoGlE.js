@@ -44,7 +44,7 @@ app.get('/:SID', (req, res) => {
 	res.json(check);
 	}
 	else{
-	res.send(`SID: ${id} not found`)
+	res.send(`SID: ${id} not found`);
 	}
 
 });
@@ -56,7 +56,7 @@ app.put('/:SID', (req, res) => {
 	let index;	
 	const found = database.map((user, sid) => {
 		if(user.SID === id){
-			index = sid
+			index = sid;
 		}
 	});
 
@@ -65,16 +65,16 @@ app.put('/:SID', (req, res) => {
 		database[index] = {...database[index], ...req.body};
 		res.json(database[index] );
 	}else{
-		res.send(`id: ${id} is not found`);
+		res.send(`SID: ${id} is not found`);
 	}
 });
 
 
 
 app.post('/', (req, res) => {
-  const body = req.body; // Hold your JSON in here!
-database.push(body);
-res.json(body);
+    const body = req.body; // Hold your JSON in here!
+    database.push(body);
+    res.json(body);
 });
 
 // IMPLEMENT A ROUTE TO HANDLE ALL OTHER ROUTES AND RETURN AN ERROR MESSAGE
